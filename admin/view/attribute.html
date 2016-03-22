@@ -1,0 +1,55 @@
+<div class="content">
+	<div class="item">
+		<div class="title">商品属性</div>
+		<div class="top-button">
+			相关操作：
+			<a href="<?= U('admin/attribute/add').'?cid='.$cid ?>" class="light">添加属性</a>
+		</div>
+		<div>请选择商品分类：
+			<select name="cid">
+				<?php if(empty($category)) {echo '<option value="-1">无分类</option>';}
+				else {
+					foreach($category as $v){
+						echo '<option value="'.$v['id'].'"';
+						if($v['id']==$cid){ echo 'selected'; }
+						echo '>'.str_repeat('— ', $v['level']).$v['name'].'</option>';
+					}
+				} ?>
+			</select>
+			<table border="1">
+				<tr><th>属性名</th><th>属性默认值</th><th width="120">操作</th></tr>
+				<?php foreach($attribute as $v) { echo 
+				"<tr>
+					<td>{$v['name']}</td><td>{$v['def_val']}</td>
+					<td>
+						<a href=\"".U('admin/attribute/edit')."?id={$v['id']}&cid={$v['cid']}\">修改</a> 
+						<a href=\"#\" class=\"act-del\" data-id=\"".$v['id'].'">删除</a>
+					</td>
+				</tr>';
+				} ?>
+			</table>
+		</div>
+	</div>
+</div>
+<script>
+	$("select").change(function() {
+		location.href = "?cid=" + $(this).val();
+	});
+
+	if ($("option").val() == -1) {
+		$(".light").click(function(e) {
+			e.preventDefault();
+			showTip("请先添加分类");
+		});
+	}
+
+	$(".act-del").click(function () {
+		if (!confirm("确定删除？")) {
+			return false;
+		}
+		var id = $(this).attr("data-id");
+		ajaxPost("<?= U('admin/attribute/del') ?>", "id="+id, function() {
+			location.reload();
+		});
+	});
+</script>
