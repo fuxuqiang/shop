@@ -15,6 +15,18 @@ class goodsController extends commonController {
 
 		if (!empty($_POST)) {
 			
+			$data = I($_POST);
+
+			$data['thumb'] = upload::getPath('pic');
+
+			$attr = $data['attr'];
+			unset($data['attr']);
+
+			if ($id = M('goods')->insert($data)) {
+				if(D('goodsAttr')->addData($attr, $id)){
+					header('location:'.U('admin/goods').'?cid='.$cid);
+				}
+			}
 		}
 
 		$tip = $this->getParam('tip',0);

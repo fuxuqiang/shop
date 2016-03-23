@@ -3,22 +3,17 @@
 		<div class="title">商品添加</div>
 		<div class="top-button">相关操作：
 			<a href="<?= U('admin/goods') ?>" class="light">商品列表</a>
-			<a href="/?p=admin&c=category&a=add">添加分类</a>
+			<a href="<?= U('admin/category/add') ?>">添加分类</a>
 		</div>
-		<?php if($tip): ?>
-		<div class="mssage">
-			添加成功。（<a href="/?p=admin&c=goods&a=edit&id=<?= $id ?>">点击修改</a>）
-		</div>
-		<?php endif; ?>
 		<div class="list auto">
-			<form method="post" action="/?p=admin&c=goods&a=addExec" id="goods">
+			<form method="post" id="goods" enctype="multipart/form-data">
 				<div class="tab"><i class="curr">商品信息</i><i>商品相册</i><i>商品详情</i></div>
 				<!--商品信息-->
 				<table class="t2 t4 tab-each">
 					<tr>
 						<th>商品分类：</th>
 						<td>
-							<select name="category_id">
+							<select name="cid">
 								<option value="0">未选择</option>
 								<?php foreach($category as $v){
 								echo '<option value="'.$v['id'].'" ';
@@ -62,8 +57,8 @@
 							</select>
 						</td>
 					</tr>
-					<tr><?php foreach($attribute as $v) {
-						echo '<th>'.$v['name'].'：</th><td>';
+					<?php foreach($attribute as $v) {
+						echo '<tr><th>'.$v['name'].'：</th><td>';
 						if (count($v['def_val'])==1) {
 							echo '<input type="text" value="'.$v['def_val'][0].'" name="attr['.$v['id'].']"></input></td>';
 						} else {
@@ -71,14 +66,14 @@
 							foreach($v['def_val'] as $vv){
 								echo '<option>'.$vv.'</option>';
 							}
-							echo '</select></td>';
+							echo '</select></td></tr>';
 						}
-					} ?></tr>
+					} ?>
 				</table>
 				<!--商品相册-->
 				<div class="album tab-each">
 					<div class="album-upload">
-						<input id="file_upload" type="file" multiple="true" />
+						<input id="file_upload" type="file" name="pic" />
 					</div>
 					<div class="album-list"></div>
 				</div>
@@ -88,7 +83,6 @@
 				</div>
 				<div class="btn">
 					<input type="submit" value="添加商品" />
-					<input type="submit" value="添加并返回" name="return" />
 				</div>
 			</form>
 		</div>
@@ -103,6 +97,8 @@ $(".tab i").click(function(){
 	$(".tab i").removeClass("curr");
 	$(this).addClass("curr");
 });
-//Ajax提交表单
-$("#goods").ajaxForm();
+
+$("select[name=cid]").change(function() {
+	location.href = "?cid=" + $(this).val();
+});
 </script>

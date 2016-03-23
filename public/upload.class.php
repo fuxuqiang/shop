@@ -2,17 +2,16 @@
 
 class upload {
 
-	public static function getPath() {
-		if (empty($_FILE)) {
-			exit('没有文件被上传');
+	public static function getPath($field) {
+		if (empty($_FILES)) {
+			return 'public/upload/preview.jpg';
 		}
-		foreach ($_FILE as $k => $v) {
-			$type = strrchr($v['name'], '.');
-			$filename = 'public/upload/'.uniqid().$type;
-			if (move_uploaded_file($_v['tmp_name'], $filename)) {
-				$path[$k] = $filename;
-			}
+		
+		$file = $_FILES[$field];
+		$type = strrchr($file['name'], '.');
+		$filename = 'public/upload/'.uniqid().$type;
+		if (move_uploaded_file($file['tmp_name'], $filename)) {
+			return $filename;
 		}
-		return $path;
 	}
 }

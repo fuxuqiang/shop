@@ -32,5 +32,12 @@ function M($table) {
 
 
 function I($arr) {
-	return array_map('htmlspecialchars', $arr);
+	foreach ($arr as $k => $v) {
+		if (is_array($v)) {
+			$arr[$k] = I($v);
+		} else {
+			$arr[$k] = htmlspecialchars($v);
+		}
+	}
+	return $arr;
 }
