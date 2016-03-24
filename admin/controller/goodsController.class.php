@@ -11,7 +11,7 @@ class goodsController extends commonController {
 
 		$data['category'] = $category->getData();
 		$data['goods'] = D('goods')->getData('goods',$cids);
-		//var_dump($data);
+		
 		$title = TITLE.'商品列表';
 		require TEMPLATE;
 	}
@@ -55,4 +55,19 @@ class goodsController extends commonController {
 		$title = TITLE.'商品添加';
 		require TEMPLATE;
 	}
+
+
+	public function change() {
+
+		$id = $_POST['id'];
+		$name = $_POST['name'];
+		$value = $_POST['value'];
+
+		if (D('goods')->change($id, $name, $value)) {
+			$this->ajaxReturn(true);
+		}
+	}
+
+
+	public function edit() {}
 }

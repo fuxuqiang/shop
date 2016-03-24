@@ -20,4 +20,11 @@ class goodsModel extends model {
 
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
+
+
+	public function change($id, $name, $value) {
+		if ($this->db->query("UPDATE `goods` SET `$name`='$value' WHERE `id`=$id")) {
+			return true;
+		}
+	}
 }
