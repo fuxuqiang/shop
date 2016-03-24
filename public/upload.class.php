@@ -3,7 +3,7 @@
 class upload {
 
 	public static function getPath($field) {
-		if (empty($_FILES)) {
+		if ($_FILES[$field]['error']==4) {
 			return 'public/upload/preview.jpg';
 		}
 		

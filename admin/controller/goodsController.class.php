@@ -3,9 +3,15 @@
 class goodsController extends commonController {
 
 	public function index() {
-		$cid = $this->getParam('cid',-1);
-		$category = D('category')->getData();
 
+		$cid = $this->getParam('cid',-1);
+		
+		$category = D('category');
+		$cids = ($cid>0)? $category->getSubIds($cid):$cid;
+
+		$data['category'] = $category->getData();
+		$data['goods'] = D('goods')->getData('goods',$cids);
+		//var_dump($data);
 		$title = TITLE.'商品列表';
 		require TEMPLATE;
 	}
@@ -19,14 +25,22 @@ class goodsController extends commonController {
 
 			$data['thumb'] = upload::getPath('pic');
 
-			$attr = $data['attr'];
-			unset($data['attr']);
+			if (isset($data['attr'])) {
+				$attr = $data['attr'];
+				unset($data['attr']);
 
-			if ($id = M('goods')->insert($data)) {
-				if(D('goodsAttr')->addData($attr, $id)){
-					header('location:'.U('admin/goods').'?cid='.$cid);
+				if ($id = M('goods')->insert($data)) {
+					if(D('goodsAttr')->addData($attr, $id)){
+						header('location:'.U('admin/goods').'?cid='.$data['cid']);
+						die;
+					}
 				}
 			}
+
+			if (M('goods')->insert($data)) {
+				header('location:'.U('admin/goods').'?cid='.$data['cid']);
+				die;
+			}			
 		}
 
 		$tip = $this->getParam('tip',0);

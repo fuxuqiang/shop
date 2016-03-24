@@ -5,7 +5,7 @@
 			<select id="cate">
 				<option value="-1" <?php if($cid==-1){ echo 'selected'; } ?>>全部</option>
 				<option value="0" <?php if($cid==0){ echo 'selected'; } ?>>未分类</option>
-				<?php foreach($category as $v){
+				<?php foreach($data['category'] as $v){
 					echo '<option value="'.$v['id'].'" ';
 					if($v['id']==$cid){ echo 'selected'; }
 					echo '>'.str_repeat('— ',$v['level']).$v['name'].'</option>';
@@ -14,22 +14,33 @@
 			<a href="<?= U('admin/goods/add').'?cid='.$cid ?>" class="light">添加商品</a>
 			<a href="<?= U('admin/category/add') ?>">添加分类</a>
 		</div>
-	<!-- <div class="list full">
+	 <div class="list full">
 		<table>
-			<tr><th class="t1">商品分类</th><th>商品名称</th><th width="100">库存</th><th width="60">上架</th><th width="60">推荐</th><th width="120">操作</th></tr>
-			<?php foreach($data['goods']['data'] as $v): ?>
-				<tr><td class="t1"><a href="/?p=admin&c=goods&cid=<?=$v['category_id']?>">
-				<?=$v['category_name'] ? $v['category_name'] : '未分类'?></a></td>
+			<tr>
+				<th class="t1">商品分类</th>
+				<th>商品名称</th>
+				<th width="100">库存</th>
+				<th width="60">上架</th>
+				<th width="60">推荐</th>
+				<th width="120">操作</th>
+			</tr>
+			<?php foreach($data['goods'] as $v): ?>
+			<tr>
+				<td class="t1">
+					<a href="/?p=admin&c=goods&cid=<?=$v['cid']?>">
+						<?=$v['cname'] ? $v['cname'] : '未分类'?>
+					</a>
+				</td>
 				<td><?=$v['name']?></td>
 				<td><?=$v['stock']?></td>
 				<td><a href="#" class="act" data-name="on_sale" data-id="<?=$v['id']?>" data-status="<?=$v['on_sale']?>"><?=($v['on_sale']=='yes')?'是':'否'?></a></td>
 				<td><a href="#" class="act" data-name="recommend" data-id="<?=$v['id']?>" data-status="<?=$v['recommend']?>"><?=($v['recommend']=='yes')?'是':'否'?></a></td><td>
-					<a href="/?p=admin&c=goods&a=edit&id=<?=$v['id']?>&cid=<?=$v['category_id']?>&page=<?=$page?>">修改</a>　<a href="#" class="act" data-name="recycle" data-id="<?=$v['id']?>">删除</a></td>
-				</tr>
+					<a href="/?p=admin&c=goods&a=edit&id=<?=$v['id']?>&cid=<?=$v['cid']?>">修改</a>　<a href="#" class="act" data-name="recycle" data-id="<?=$v['id']?>">删除</a></td>
+			</tr>
 			<?php endforeach; ?>
 		</table>
 	</div>
-	<div class="pagelist"><?=$data['goods']['pagelist']?></div>-->
+	<!-- <div class="pagelist"><?=$data['goods']['pagelist']?></div> -->
 	</div>
 </div>
 <script>

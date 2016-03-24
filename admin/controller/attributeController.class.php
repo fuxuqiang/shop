@@ -27,6 +27,7 @@ class attributeController extends commonController {
 
 			if (M('attribute')->insert($data)) {
 				header('location:'.U('admin/attribute'));
+				die;
 			}
 		}
 
@@ -55,6 +56,7 @@ class attributeController extends commonController {
 
 			if (M('attribute')->update($data)) {
 				header('location:'.U('admin/attribute'));
+				die;
 			}
 		}
 

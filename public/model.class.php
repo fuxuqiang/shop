@@ -4,7 +4,7 @@ class model {
 
 	private $table;
 
-	private $db;
+	protected $db;
 
 	private function getField($data) {
 		$fields = '';
@@ -21,12 +21,12 @@ class model {
 		$this->db = MySQLPDO::getInstance();
 	}
 
-	public function fetchAll($fields, $where='1=1') {
+	public function fetchAll($fields, $where='1') {
 		$stmt = $this->db->query("SELECT $fields FROM $this->table WHERE $where");
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function fetch($fields, $where='1=1') {
+	public function fetch($fields, $where='1') {
 		$stmt = $this->db->query("SELECT $fields FROM $this->table WHERE $where");
 		return $stmt->fetch();
 	}
