@@ -18,7 +18,7 @@ class goodsAttrModel extends model {
 
 			if ($id = $this->getField('id', "aid=$k and gid=$gid")) {
 
-				if(!$this->update(array('id'=>$id, 'aid'=>$k, 'value'=>$v, 'gid'=>$gid))) {
+				if(!$this->update(array('aid'=>$k, 'value'=>$v, 'gid'=>$gid), "id=$id")) {
 					return false;
 				}
 

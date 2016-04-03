@@ -88,7 +88,7 @@ class goodsController extends commonController {
 				$attr = $data['attr'];
 				unset($data['attr']);
 				
-				if (M('goods')->update($data)) {
+				if (M('goods')->update($data, "id=$id")) {
 					if(D('goodsAttr')->updateData($attr, $id)){
 						$this->redirect(U('admin/goods').'?cid='.$data['cid']);
 					}

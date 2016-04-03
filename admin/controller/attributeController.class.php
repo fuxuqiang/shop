@@ -48,17 +48,18 @@ class attributeController extends commonController {
 
 
 	public function edit() {
+
+		$id = $_GET['id'];
 		
 		if (!empty($_POST)) {
 
 			$data = I($_POST);
 
-			if (M('attribute')->update($data)) {
+			if (M('attribute')->update($data, "id=$id")) {
 				$this->redirect(U('admin/attribute'));
 			}
 		}
 
-		$id = $_GET['id'];
 		$cid = $_GET['cid'];
 
 		$attribute = M('attribute')->fetch('*',"id=$id");

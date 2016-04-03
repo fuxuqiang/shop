@@ -52,29 +52,29 @@ class categoryController extends commonController {
 
 	public function edit() {
 
+		$id = $_GET['id'];
+
 		if (!empty($_POST)) {
 			
-			$data['id'] = $_POST['id'];
 			$data['name'] = $_POST['name'];
 			$data['pid'] = $_POST['pid'];
 
 			$model = D('category');
 
-			if (in_array($data['pid'], $model->getSubIds($data['id']))) {
+			if (in_array($data['pid'], $model->getSubIds($id))) {
 				$this->ajaxReturn(false, '不允许将当前分类及其子类作为父分类');
 			}
 
-			$res = $model->update($data);
+			$res = $model->update($data, "id=$id");
 
 			if ($res && isset($_POST['return'])) {
 				$this->ajaxReturn(true,'',U('admin/category'));
 			} elseif ($res) {
-				$this->ajaxReturn(true,'','?tip=1&id='.$data['id']);
+				$this->ajaxReturn(true,'','?tip=1&id='.$id);
 			}
 		}
 			
 		$tip = $this->getParam('tip',0);
-		$id = $_GET['id'];
 
 		$model = D('category');
 
