@@ -6,7 +6,7 @@ class model {
 
 	protected $db;
 
-	private function getField($data) {
+	private function getFields($data) {
 		$fields = '';
 		$params = '';
 		foreach ($data as $k => $v) {
@@ -21,20 +21,28 @@ class model {
 		$this->db = MySQLPDO::getInstance();
 	}
 
-	public function fetchAll($fields, $where='1') {
-		$stmt = $this->db->query("SELECT $fields FROM $this->table WHERE $where");
+	protected function query($sql) {
+		$stmt = $this->db->query($sql);
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function fetch($fields, $where='1') {
+	public function fetchAll($fields, $where='1') {
+		return $this->query("SELECT $fields FROM $this->table WHERE $where");		
+	}
+
+	public function fetch($fields, $where) {
 		$stmt = $this->db->query("SELECT $fields FROM $this->table WHERE $where");
 		return $stmt->fetch();
+	}
+
+	public function getField($field, $where) {
+		return $this->fetch($field, $where)[0];
 	}
 
 
 	public function insert($data) {
 
-		$fields = $this->getField($data);
+		$fields = $this->getFields($data);
 
 		$stmt = $this->db->query(
 			"INSERT INTO $this->table ($fields[0]) VALUES ($fields[1])",
@@ -61,7 +69,7 @@ class model {
 
 	public function update($data) {
 
-		$fields = $this->getField($data);
+		$fields = $this->getFields($data);
 
 		$stmt = $this->db->query(
 			"REPLACE INTO $this->table ($fields[0]) VALUES ($fields[1])",

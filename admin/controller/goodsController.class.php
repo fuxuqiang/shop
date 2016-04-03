@@ -7,7 +7,7 @@ class goodsController extends commonController {
 		$cid = $this->getParam('cid',-1);
 		
 		$category = D('category');
-		$cids = ($cid>0)? $category->getSubIds($cid):$cid;
+		$cids = ($cid>0)? $category->getSubIds($cid) : $cid;
 
 		$data['category'] = $category->getData();
 		$data['goods'] = D('goods')->getData('goods',$cids);
@@ -23,23 +23,25 @@ class goodsController extends commonController {
 			
 			$data = I($_POST);
 
-			$data['thumb'] = upload::getPath('pic');
+			if (empty($_FILES['pic']['name'])) {
+				$data['thumb'] = 'public/upload/preview.jpg';
+			} else {				
+				$data['thumb'] = upload::getPath('pic');
+			}
 
 			if (isset($data['attr'])) {
 				$attr = $data['attr'];
 				unset($data['attr']);
 
 				if ($id = M('goods')->insert($data)) {
-					if(D('goodsAttr')->addData($attr, $id)){
-						header('location:'.U('admin/goods').'?cid='.$data['cid']);
-						die;
+					if(D('goodsAttr')->saveData($attr, $id)){
+						$this->redirect(U('admin/goods').'?cid='.$data['cid']);
 					}
 				}
 			}
 
 			if (M('goods')->insert($data)) {
-				header('location:'.U('admin/goods').'?cid='.$data['cid']);
-				die;
+				$this->redirect(U('admin/goods').'?cid='.$data['cid']);
 			}			
 		}
 
@@ -69,5 +71,42 @@ class goodsController extends commonController {
 	}
 
 
-	public function edit() {}
+	public function edit() {
+
+		$id = $_GET['id'];
+
+		if (!empty($_POST)) {
+			
+			$data = I($_POST);
+
+			if (!empty($_FILES['pic']['name'])) {
+				$data['thumb'] = D('goods')->handleThumb($id);
+			}
+
+			if (isset($data['attr'])) {
+				
+				$attr = $data['attr'];
+				unset($data['attr']);
+				
+				if (M('goods')->update($data)) {
+					if(D('goodsAttr')->updateData($attr, $id)){
+						$this->redirect(U('admin/goods').'?cid='.$data['cid']);
+					}
+				}
+			}
+
+			if (M('goods')->insert($data)) {
+				$this->redirect(U('admin/goods').'?cid='.$data['cid']);
+			}
+		}
+
+		$cid = $_GET['cid'];
+
+		$data['category'] = D('category')->getData();
+		$data['goods'] = M('goods')->fetch('*',"id=$id");
+		$data['attribute'] = D('goodsAttr')->getData($cid, $id);
+		
+		$title = TITLE.'商品修改';
+		require TEMPLATE;
+	}
 }

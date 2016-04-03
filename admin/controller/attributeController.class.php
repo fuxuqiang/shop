@@ -26,8 +26,7 @@ class attributeController extends commonController {
 			$data = I($_POST);
 
 			if (M('attribute')->insert($data)) {
-				header('location:'.U('admin/attribute'));
-				die;
+				$this->redirect(U('admin/attribute'));
 			}
 		}
 
@@ -55,8 +54,7 @@ class attributeController extends commonController {
 			$data = I($_POST);
 
 			if (M('attribute')->update($data)) {
-				header('location:'.U('admin/attribute'));
-				die;
+				$this->redirect(U('admin/attribute'));
 			}
 		}
 

@@ -3,9 +3,6 @@
 class upload {
 
 	public static function getPath($field) {
-		if ($_FILES[$field]['error']==4) {
-			return 'public/upload/preview.jpg';
-		}
 		
 		$file = $_FILES[$field];
 		$type = strrchr($file['name'], '.');

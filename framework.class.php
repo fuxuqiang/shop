@@ -20,7 +20,7 @@ class Framework {
 
 	private static function getParams() {
 		
-		define('ROOT', dirname($_SERVER['SCRIPT_NAME']));
+		define('ROOT', dirname($_SERVER['SCRIPT_NAME']).'/');
 
 		if(isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO']!='/') {
 			$params = explode('/', trim($_SERVER['PATH_INFO'],'/'));

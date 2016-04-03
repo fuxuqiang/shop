@@ -5,7 +5,7 @@ class goodsModel extends model {
 	public function getData($type='goods', $cids=0) {
 		if ($type=='goods') {
 			$where = "g.recycle='no'";
-		} elseif (is_array($cids)) {
+		} elseif ($type=='recycle') {
 			$where = "g.recycle='yes'";
 		}
 		
@@ -15,10 +15,9 @@ class goodsModel extends model {
 			$where .= 'and g.cid in ('.implode(',', $cids).')';
 		}
 
-		$q = "SELECT `c`.`name` as `cname`, `g`.* FROM `goods` as `g` LEFT JOIN `category` as `c` ON `c`.`id`=`g`.`cid` WHERE $where";	
-		$stmt = $this->db->query($q);
-
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$q = "SELECT `c`.`name` as `cname`, `g`.* FROM `goods` as `g` LEFT JOIN `category` as `c` ON `c`.`id`=`g`.`cid` WHERE $where";
+			
+		return $this->query($q);
 	}
 
 
@@ -26,5 +25,14 @@ class goodsModel extends model {
 		if ($this->db->query("UPDATE `goods` SET `$name`='$value' WHERE `id`=$id")) {
 			return true;
 		}
+	}
+
+
+	public function handleThumb($id) {
+		$thumb = $this->getField('thumb',"id=$id");
+		if ($thumb!='public/upload/preview.jpg') {
+			unlink($thumb);
+		}
+		return upload::getPath('pic');
 	}
 }

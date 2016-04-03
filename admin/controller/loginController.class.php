@@ -34,6 +34,6 @@ class loginController extends controller{
 		unset($_SESSION);
 		setcookie(session_name(), '', time()-1);
 		session_destroy();
-		header('location:'.U('admin/login'));
+		$this->redirect(U('admin/login'));
 	}
 }

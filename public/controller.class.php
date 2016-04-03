@@ -9,4 +9,9 @@ abstract class controller {
 	protected function getParam($field, $def) {
 		return isset($_GET[$field])? $_GET[$field]:$def;
 	}
+
+	protected function redirect($pca) {
+		header('location:'.$pca);
+		die;
+	}
 }

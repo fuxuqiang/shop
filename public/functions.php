@@ -1,7 +1,7 @@
 <?php
 
 function U($pca) {
-	return ROOT.'/'.$pca;
+	return ROOT.$pca;
 }
 
 
