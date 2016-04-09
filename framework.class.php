@@ -45,7 +45,7 @@ class Framework {
 			case 'home':
 				define('TITLE', '商城 -  ');	
 				break;		
-			case 'admin':
+			case 'Admin':
 				define('TITLE', '商城 - 后台管理系统 - ');
 				break;
 		}
