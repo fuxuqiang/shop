@@ -26,7 +26,7 @@ class goodsController extends commonController {
 			if (empty($_FILES['pic']['name'])) {
 				$data['thumb'] = 'public/upload/preview.jpg';
 			} else {				
-				$data['thumb'] = upload::getPath('pic');
+				$data['thumb'] = image::getPath('pic');
 			}
 
 			if (isset($data['attr'])) {
@@ -34,7 +34,7 @@ class goodsController extends commonController {
 				unset($data['attr']);
 
 				if ($id = M('goods')->insert($data)) {
-					if(D('goodsAttr')->saveData($attr, $id)){
+					if(D('goodsAttr')->addData($attr, $id)){
 						$this->redirect(U('admin/goods').'?cid='.$data['cid']);
 					}
 				}
