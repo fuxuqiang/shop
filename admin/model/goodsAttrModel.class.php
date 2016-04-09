@@ -35,12 +35,16 @@ class goodsAttrModel extends model {
 
 
 	public function getData($cid, $gid) {
+
+		$cids = D('category')->getParentIds($cid);
+
+		$where = implode(',', $cids);
 		
 		$q = "SELECT `ga`.`id`, `ga`.`value`, `a`.`id` AS `aid`, `a`.`name`, `a`.`def_val` 
 			FROM `attribute` AS `a` 
 			LEFT JOIN (SELECT * FROM `goodsAttr` WHERE `gid`=$gid) as `ga` 
 			ON `ga`.`aid`=`a`.`id` 
-			WHERE `a`.`cid`=$cid";
+			WHERE `a`.`cid` IN ($where)";
 
 		$data = $this->query($q);
 

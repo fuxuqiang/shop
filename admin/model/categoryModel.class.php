@@ -28,4 +28,14 @@ class categoryModel extends model{
 		}
 		return $result;
 	}
+
+	public function getParentIds($id) {
+		static $pids = array();		
+		if ($pid = $this->getField('pid',"id=$id")) {
+			$pids[] = $pid;
+			$this->getParentIds($pid);
+		}
+		$pids[] = $id;
+		return $pids;
+	}
 }

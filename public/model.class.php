@@ -11,17 +11,45 @@ class model {
 		$this->db = MySQLPDO::getInstance();
 	}
 
+
+	private function where($where) {
+
+		if (is_array($where)) {
+
+			$conditions = array();
+
+			foreach ($where as $k => $v) {
+
+				if (is_array($v)) {
+					$v = array_map(function($v){return "'".$v."'";}, $v);
+					$val = implode(',', $v);
+					$conditions[] = "`$k` IN ($val)";
+				} else {
+					$conditions[] = "`$k`='$v'";
+				}
+			}
+
+			return implode(' AND ', $conditions);
+
+		} else {
+			return $where;
+		}
+	}
+
+
 	protected function query($sql) {
 		$stmt = $this->db->query($sql);
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function fetchAll($fields, $where='1') {
-		return $this->query("SELECT $fields FROM `$this->table` WHERE $where");		
+		$conditions = $this->where($where);
+		return $this->query("SELECT $fields FROM `$this->table` WHERE $conditions");		
 	}
 
 	public function fetch($fields, $where) {
-		$stmt = $this->db->query("SELECT $fields FROM `$this->table` WHERE $where");
+		$conditions = $this->where($where);
+		$stmt = $this->db->query("SELECT $fields FROM `$this->table` WHERE $conditions");
 		return $stmt->fetch();
 	}
 

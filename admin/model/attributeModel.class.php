@@ -2,7 +2,11 @@
 
 class attributeModel extends model {
 
-	public function getData($where) {
+	public function getData($cid) {
+
+		$cids = D('category')->getParentIds($cid);
+		
+		$where = array('cid'=>$cids);
 
 		$data = $this->fetchAll('*',$where);
 

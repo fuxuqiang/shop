@@ -52,7 +52,7 @@ class goodsController extends commonController {
 		$cid<0 && $cid = 0;
 
 		$category = D('category')->getData();
-		$attribute = D('attribute')->getData("cid=$cid");
+		$attribute = D('attribute')->getData($cid);
 
 		$title = TITLE.'商品添加';
 		require TEMPLATE;
