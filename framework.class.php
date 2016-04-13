@@ -45,7 +45,7 @@ class Framework {
 			case 'home':
 				define('TITLE', '商城 -  ');	
 				break;		
-			case 'Admin':
+			case 'admin':
 				define('TITLE', '商城 - 后台管理系统 - ');
 				break;
 		}
@@ -53,9 +53,9 @@ class Framework {
 
 	private static function dispatch() {
 		session_start();
-		$cName = CONTROLLER.'Controller';
-		$controller = new $cName;
-		$aName = ACTION;
-		$controller->$aName();
+		$c_name = CONTROLLER.'Controller';
+		$controller = new $c_name;
+		$a_name = ACTION;
+		$controller->$a_name();
 	}
 }
