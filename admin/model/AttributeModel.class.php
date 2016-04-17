@@ -1,10 +1,10 @@
 <?php
 
-class attributeModel extends model {
+class AttributeModel extends Model {
 
 	public function getData($cid) {
 
-		$cids = D('category')->getParentIds($cid);
+		$cids = D('Category')->getParentIds($cid);
 		
 		$where = array('cid'=>$cids);
 

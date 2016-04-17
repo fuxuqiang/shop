@@ -1,6 +1,6 @@
 <?php
 
-class categoryModel extends model{
+class CategoryModel extends Model{
 
 	private function tree($data, $pid=0, $level=0) {
 		static $rst = array();

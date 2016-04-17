@@ -13,7 +13,7 @@
 	<ul>
 		<li>欢迎您：<?= $_SESSION['admin'] ?></li>
 		<li><a href="/" target="_blank">前台首页</a></li>
-		<li><a href="<?= U('admin/login/logout') ?>">退出登录</a></li>
+		<li><a href="<?= U('admin/Login/logout') ?>">退出登录</a></li>
 	</ul>
 </div>
 <div class="main">
@@ -21,13 +21,13 @@
 		<div class="box">
 			<div class="head"><i></i><div>管理菜单</div></div>
 			<ul>
-				<li><a href="<?= U('admin') ?>" id=index>后台首页</a></li>
-				<li><a href="<?= U('admin/goods') ?>" id="goods">商品列表</a></li>
+				<li><a href="<?= U('admin') ?>" id=Index>后台首页</a></li>
+				<li><a href="<?= U('admin/Goods') ?>" id="Goods">商品列表</a></li>
 				<li>
 					<a href="<?= U('admin/Attribute') ?>" id="Attribute">商品属性</a>
 				</li>
 				<li>
-					<a href="<?= U('admin/category') ?>" id="category">商品分类</a>
+					<a href="<?= U('admin/Category') ?>" id="Category">商品分类</a>
 				</li>
 				<li><a href="/?p=admin&c=recycle&a=index" id="recycle">回收站</a></li>
 				<li><a href="/?p=admin&c=user&a=index" id="user">会员管理</a></li>

@@ -1,6 +1,6 @@
 <?php
 
-class goodsAttrModel extends model {
+class GoodsAttrModel extends Model {
 
 	public function addData($data, $gid) {
 		foreach ($data as $k => $v) {
@@ -36,13 +36,13 @@ class goodsAttrModel extends model {
 
 	public function getData($cid, $gid) {
 
-		$cids = D('category')->getParentIds($cid);
+		$cids = D('Category')->getParentIds($cid);
 
 		$where = implode(',', $cids);
 		
 		$q = "SELECT `ga`.`id`, `ga`.`value`, `a`.`id` AS `aid`, `a`.`name`, `a`.`def_val` 
 			FROM `attribute` AS `a` 
-			LEFT JOIN (SELECT * FROM `goodsAttr` WHERE `gid`=$gid) as `ga` 
+			LEFT JOIN (SELECT * FROM `goods_attr` WHERE `gid`=$gid) as `ga` 
 			ON `ga`.`aid`=`a`.`id` 
 			WHERE `a`.`cid` IN ($where)";
 

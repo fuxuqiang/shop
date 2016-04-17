@@ -1,6 +1,6 @@
 <?php
 
-class captcha {
+class Captcha {
 
 	public static function create() {
 		

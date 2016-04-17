@@ -1,18 +1,18 @@
 <?php
 
-class AttributeController extends commonController {
+class AttributeController extends CommonController {
 
 	public function index() {
 
 		$cid = $this->getParam('cid',0);
 
-		$category = D('category')->getData();
+		$category = D('Category')->getData();
 
 		if ($cid==0 && isset($category[0]['id'])) {
 			$cid = $category[0]['id'];
 		}
 
-		$attribute = M('attribute')->fetchAll('*',"cid=$cid");
+		$attribute = M('Attribute')->fetchAll('*',"cid=$cid");
 
 		$title = TITLE.'商品属性';
 		require TEMPLATE;
@@ -25,7 +25,7 @@ class AttributeController extends commonController {
 			
 			$data = I($_POST);
 
-			if (M('attribute')->insert($data)) {
+			if (M('Attribute')->insert($data)) {
 				$this->redirect(U('admin/attribute'));
 			}
 		}
@@ -41,7 +41,7 @@ class AttributeController extends commonController {
 
 		$id = $_POST['id'];
 			
-		if (M('attribute')->delete("id=$id")) {
+		if (M('Attribute')->delete("id=$id")) {
 			$this->ajaxReturn(true);
 		}
 	}
@@ -55,14 +55,14 @@ class AttributeController extends commonController {
 
 			$data = I($_POST);
 
-			if (M('attribute')->update($data, "id=$id")) {
-				$this->redirect(U('admin/attribute'));
+			if (M('Attribute')->update($data, "id=$id")) {
+				$this->redirect(U('admin/Attribute'));
 			}
 		}
 
 		$cid = $_GET['cid'];
 
-		$attribute = M('attribute')->fetch('*',"id=$id");
+		$attribute = M('Attribute')->fetch('*',"id=$id");
 
 		$title = TITLE.'属性修改';
 		require TEMPLATE;

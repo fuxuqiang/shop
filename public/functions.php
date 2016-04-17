@@ -24,7 +24,7 @@ function M($table) {
 	static $model = array();
 
 	if (!isset($model[$table])) {
-		$model[$table] = new model($table);
+		$model[$table] = new Model($table);
 	}
 
 	return $model[$table];

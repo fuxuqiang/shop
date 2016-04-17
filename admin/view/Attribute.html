@@ -3,7 +3,7 @@
 		<div class="title">商品属性</div>
 		<div class="top-button">
 			相关操作：
-			<a href="<?= U('admin/attribute/add').'?cid='.$cid ?>" class="light">添加属性</a>
+			<a href="<?= U('admin/Attribute/add').'?cid='.$cid ?>" class="light">添加属性</a>
 		</div>
 		<div>请选择商品分类：
 			<select name="cid">
@@ -22,7 +22,7 @@
 				"<tr>
 					<td>{$v['name']}</td><td>{$v['def_val']}</td>
 					<td>
-						<a href=\"".U('admin/attribute/edit')."?id={$v['id']}&cid={$v['cid']}\">修改</a> 
+						<a href=\"".U('admin/Attribute/edit')."?id={$v['id']}&cid={$v['cid']}\">修改</a> 
 						<a href=\"#\" class=\"act-del\" data-id=\"".$v['id'].'">删除</a>
 					</td>
 				</tr>';
@@ -48,7 +48,7 @@
 			return false;
 		}
 		var id = $(this).attr("data-id");
-		ajaxPost("<?= U('admin/attribute/del') ?>", "id="+id, function() {
+		ajaxPost("<?= U('admin/Attribute/del') ?>", "id="+id, function() {
 			location.reload();
 		});
 	});

@@ -1,6 +1,6 @@
 <?php
 
-class goodsModel extends model {
+class GoodsModel extends Model {
 
 	public function getData($type='goods', $cids=0) {
 		if ($type=='goods') {

@@ -2,13 +2,13 @@
 	<div class="item">
 		<div class="title">商品分类</div>
 		<div class="top-button">
-			相关操作：<a href="<?= U('admin/category/add') ?>" class="light">添加分类</a>
+			相关操作：<a href="<?= U('admin/Category/add') ?>" class="light">添加分类</a>
 		</div>
 		<div class="list full auto">
 			<table id="category"><tr><th>分类名称</th><th>操作</th></tr>
 			<?php foreach($data as $v){
 				echo '<tr><td>'.str_repeat('— ',$v['level']).$v['name'].'</td>';
-				echo '<td><a href="'.U('admin/category/edit').'?id='.$v['id'].'">修改</a> ';
+				echo '<td><a href="'.U('admin/Category/edit').'?id='.$v['id'].'">修改</a> ';
 				echo '<a href="#" class="act-del" data-id="'.$v['id'].'" >删除</a></td></tr>';
 			} ?>
 			</table>
@@ -21,7 +21,7 @@
 			return false;
 		}
 		var id = $(this).attr("data-id");
-		ajaxPost("<?= U('admin/category/del') ?>", "id="+id, function() {
+		ajaxPost("<?= U('admin/Category/del') ?>", "id="+id, function() {
 			location.reload();
 		});
 	});

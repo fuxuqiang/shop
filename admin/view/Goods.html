@@ -11,8 +11,8 @@
 					echo '>'.str_repeat('— ',$v['level']).$v['name'].'</option>';
 				} ?>
 			</select>
-			<a href="<?= U('admin/goods/add').'?cid='.$cid ?>" class="light">添加商品</a>
-			<a href="<?= U('admin/category/add') ?>">添加分类</a>
+			<a href="<?= U('admin/Goods/add').'?cid='.$cid ?>" class="light">添加商品</a>
+			<a href="<?= U('admin/Category/add') ?>">添加分类</a>
 		</div>
 	 <div class="list full">
 		<table>
@@ -27,7 +27,7 @@
 			<?php foreach($data['goods'] as $v): ?>
 			<tr>
 				<td class="t1">
-					<a href="<?= U('admin/category').'?cid='.$v['cid']?>">
+					<a href="<?= U('admin/Category').'?cid='.$v['cid']?>">
 						<?=$v['cname'] ? $v['cname'] : '未分类'?>
 					</a>
 				</td>
@@ -38,7 +38,7 @@
 					<a href="#" class="act" data-name="recommend" data-id="<?=$v['id']?>" data-status="<?=$v['recommend']?>"><?=($v['recommend']=='yes')?'是':'否'?></a>
 				</td>
 				<td>
-					<a href="<?= U('admin/goods/edit').'?id='.$v['id'].'&cid='.$v['cid'] ?>">修改</a>　
+					<a href="<?= U('admin/Goods/edit').'?id='.$v['id'].'&cid='.$v['cid'] ?>">修改</a>　
 					<a href="#" class="act" data-name="recycle" data-id="<?=$v['id']?>">删除</a>
 				</td>
 			</tr>
@@ -62,7 +62,7 @@ $(".act").click(function () {
  		return false;
  	}
 	ajaxPost(
-		"<?= U('admin/goods/change') ?>", 
+		"<?= U('admin/Goods/change') ?>", 
 		{"id":id, "name":name, "value":value}, 
 		function() {
 			location.reload();

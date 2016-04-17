@@ -9,9 +9,9 @@ class Framework {
 	}
 
 	private static function class_loader($class) {
-		if (strpos($class, 'Controller')!==false) {
+		if (strpos($class, 'Controller')) {
 			require PLATFORM.'/controller/'.$class.EXT;
-		} elseif (strpos($class, 'Model')!==false) {
+		} elseif (strpos($class, 'Model')) {
 			require PLATFORM.'/model/'.$class.EXT;
 		} else {
 			require 'public/'.$class.EXT;
@@ -28,7 +28,7 @@ class Framework {
 
 		define('PLATFORM', isset($params[0])? $params[0]:'home');	
 
-		define('CONTROLLER', isset($params[1])? $params[1]:'index');
+		define('CONTROLLER', isset($params[1])? $params[1]:'Index');
 
 		define('ACTION', isset($params[2])? $params[2]:'index');
 

@@ -1,6 +1,6 @@
 <?php
 
-class image {
+class Image {
 
 	public static function getPath($field) {
 		

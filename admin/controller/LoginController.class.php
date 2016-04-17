@@ -1,6 +1,6 @@
 <?php
 
-class LoginController extends controller{
+class LoginController extends Controller{
 
 	public function index() {
 
@@ -26,7 +26,7 @@ class LoginController extends controller{
 
 
 	public function captcha() {
-		captcha::create();
+		Captcha::create();
 	}
 
 

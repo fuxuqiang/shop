@@ -1,16 +1,16 @@
 <?php
 
-class goodsController extends commonController {
+class GoodsController extends CommonController {
 
 	public function index() {
 
 		$cid = $this->getParam('cid',-1);
 		
-		$category = D('category');
+		$category = D('Category');
 		$cids = ($cid>0)? $category->getSubIds($cid) : $cid;
 
 		$data['category'] = $category->getData();
-		$data['goods'] = D('goods')->getData('goods',$cids);
+		$data['goods'] = D('Goods')->getData('goods',$cids);
 		
 		$title = TITLE.'商品列表';
 		require TEMPLATE;
@@ -34,14 +34,14 @@ class goodsController extends commonController {
 				unset($data['attr']);
 
 				if ($id = M('goods')->insert($data)) {
-					if(D('goodsAttr')->addData($attr, $id)){
-						$this->redirect(U('admin/goods').'?cid='.$data['cid']);
+					if(D('GoodsAttr')->addData($attr, $id)){
+						$this->redirect(U('admin/Goods').'?cid='.$data['cid']);
 					}
 				}
 			}
 
-			if (M('goods')->insert($data)) {
-				$this->redirect(U('admin/goods').'?cid='.$data['cid']);
+			if (M('Goods')->insert($data)) {
+				$this->redirect(U('admin/Goods').'?cid='.$data['cid']);
 			}			
 		}
 
@@ -51,8 +51,8 @@ class goodsController extends commonController {
 		$cid = $_GET['cid'];
 		$cid<0 && $cid = 0;
 
-		$category = D('category')->getData();
-		$attribute = D('attribute')->getData($cid);
+		$category = D('Category')->getData();
+		$attribute = D('Attribute')->getData($cid);
 
 		$title = TITLE.'商品添加';
 		require TEMPLATE;
@@ -65,7 +65,7 @@ class goodsController extends commonController {
 		$name = $_POST['name'];
 		$value = $_POST['value'];
 
-		if (D('goods')->change($id, $name, $value)) {
+		if (D('Goods')->change($id, $name, $value)) {
 			$this->ajaxReturn(true);
 		}
 	}
@@ -80,7 +80,7 @@ class goodsController extends commonController {
 			$data = I($_POST);
 
 			if (!empty($_FILES['pic']['name'])) {
-				$data['thumb'] = D('goods')->handleThumb($id);
+				$data['thumb'] = D('Goods')->handleThumb($id);
 			}
 
 			if (isset($data['attr'])) {
@@ -88,23 +88,23 @@ class goodsController extends commonController {
 				$attr = $data['attr'];
 				unset($data['attr']);
 				
-				if (M('goods')->update($data, "id=$id")) {
-					if(D('goodsAttr')->updateData($attr, $id)){
-						$this->redirect(U('admin/goods').'?cid='.$data['cid']);
+				if (M('Goods')->update($data, "id=$id")) {
+					if(D('GoodsAttr')->updateData($attr, $id)){
+						$this->redirect(U('admin/Goods').'?cid='.$data['cid']);
 					}
 				}
 			}
 
-			if (M('goods')->insert($data)) {
-				$this->redirect(U('admin/goods').'?cid='.$data['cid']);
+			if (M('Goods')->insert($data)) {
+				$this->redirect(U('admin/Goods').'?cid='.$data['cid']);
 			}
 		}
 
 		$cid = $_GET['cid'];
 
-		$data['category'] = D('category')->getData();
-		$data['goods'] = M('goods')->fetch('*',"id=$id");
-		$data['attribute'] = D('goodsAttr')->getData($cid, $id);
+		$data['category'] = D('Category')->getData();
+		$data['goods'] = M('Goods')->fetch('*',"id=$id");
+		$data['attribute'] = D('GoodsAttr')->getData($cid, $id);
 		
 		$title = TITLE.'商品修改';
 		require TEMPLATE;
