@@ -33,8 +33,8 @@ class GoodsController extends CommonController {
 				$attr = $data['attr'];
 				unset($data['attr']);
 
-				if ($id = M('goods')->insert($data)) {
-					if(D('GoodsAttr')->addData($attr, $id)){
+				if ($id = M('Goods')->insert($data)) {
+					if(D('GoodsAttr')->addData($attr, $id)) {
 						$this->redirect(U('admin/Goods').'?cid='.$data['cid']);
 					}
 				}

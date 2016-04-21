@@ -7,8 +7,7 @@ class Model {
 	protected $db;
 
 	public function __construct($table) {
-		$this->table = strtolower($table);
-		//$this->table = strtolower(preg_replace('/([A-Z])/', '_$1', lcfirst($table)));
+		$this->table = strtolower(preg_replace('/([A-Z])/', '_$1', lcfirst($table)));
 		$this->db = MySQLPDO::getInstance();
 	}
 

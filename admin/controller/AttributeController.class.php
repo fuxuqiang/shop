@@ -26,7 +26,7 @@ class AttributeController extends CommonController {
 			$data = I($_POST);
 
 			if (M('Attribute')->insert($data)) {
-				$this->redirect(U('admin/attribute'));
+				$this->redirect(U('admin/Attribute'));
 			}
 		}
 
