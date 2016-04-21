@@ -7,9 +7,9 @@ class MySQLPDO {
 	private function __construct($flag=false) {
 		try {
 			$this->db = new PDO(
-				'mysql:host=localhost;dbname=shop;charset=utf8',
-				'root',
-				'eb',
+				'mysql:host='.HOST.';dbname=shop;charset=utf8',
+				USER,
+				PWD,
 				array(PDO::ATTR_ERRMODE=>2)
 			);
 		} catch (PDOException $e) {
