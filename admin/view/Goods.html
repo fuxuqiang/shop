@@ -11,7 +11,7 @@
 					echo '>'.str_repeat('— ',$v['level']).$v['name'].'</option>';
 				} ?>
 			</select>
-			<a href="<?= U('admin/Goods/add').'?cid='.$cid ?>" class="light">添加商品</a>
+			<a href='<?= U("admin/Goods/add?cid=$cid") ?>' class="light">添加商品</a>
 			<a href="<?= U('admin/Category/add') ?>">添加分类</a>
 		</div>
 	 <div class="list full">
