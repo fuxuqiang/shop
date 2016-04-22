@@ -32,10 +32,14 @@
 </div>
 <script>
 //恢复
-$(".act-rec").ajaxButton("/?p=admin&c=recycle&a=recExec",function(){
-	return {"id":$(this).attr("data-id")};
-},function(data){
-	data.ok && location.reload(); //完成后刷新
+$(".act-rec").click(function(){
+	ajaxPost(
+		"<?= U('admin/Recycle/recExec') ?>", 
+		{"id":$(this).attr("data-id")}, 
+		function() {
+			location.reload();
+		}
+	);
 });
 //彻底删除
 $(".act-del").ajaxButton("/?p=admin&c=recycle&a=delExec",function(){

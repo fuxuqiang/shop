@@ -9,4 +9,11 @@ class RecycleController extends CommonController {
 		$title = TITLE.'商品回收站';
 		require TEMPLATE;
 	}
+
+	public function recExec() {
+		$id = $_POST['id'];
+		if(D('Goods')->change($id, 'recycle', 'no')){
+			$this->ajaxReturn(true);
+		}
+	}
 }
