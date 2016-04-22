@@ -10,9 +10,16 @@ class RecycleController extends CommonController {
 		require TEMPLATE;
 	}
 
-	public function recExec() {
+	public function recover() {
 		$id = $_POST['id'];
 		if(D('Goods')->change($id, 'recycle', 'no')){
+			$this->ajaxReturn(true);
+		}
+	}
+
+	public function del() {
+		$id = $_POST['id'];
+		if (M('Goods')->delete("id=$id")) {
 			$this->ajaxReturn(true);
 		}
 	}

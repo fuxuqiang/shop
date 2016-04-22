@@ -34,7 +34,7 @@
 //恢复
 $(".act-rec").click(function(){
 	ajaxPost(
-		"<?= U('admin/Recycle/recExec') ?>", 
+		"<?= U('admin/Recycle/recover') ?>", 
 		{"id":$(this).attr("data-id")}, 
 		function() {
 			location.reload();
@@ -42,12 +42,16 @@ $(".act-rec").click(function(){
 	);
 });
 //彻底删除
-$(".act-del").ajaxButton("/?p=admin&c=recycle&a=delExec",function(){
+$(".act-del").click(function(){
 	if(!confirm('确定要彻底删除吗？')){
 		return false;
 	}
-	return {"id":$(this).attr("data-id")};
-},function(data){
-	data.ok && location.reload(); //完成后刷新
+	ajaxPost(
+		"<?= U('admin/Recycle/del') ?>", 
+		{"id":$(this).attr("data-id")}, 
+		function() {
+			location.reload();
+		}
+	);
 });
 </script>
