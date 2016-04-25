@@ -20,8 +20,8 @@ class LoginController extends Controller{
 			}
 		}
 
-		$captchaUrl = U('admin/Login/captcha');
-		require VIEW;		
+		$captcha = U('admin/Login/captcha');
+		require VIEW;
 	}
 
 

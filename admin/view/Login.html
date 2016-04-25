@@ -5,7 +5,7 @@
 <title>商城 - 后台管理系统</title>
 <link rel="stylesheet" href="<?= U('admin') ?>/view/css/style.css" />
 <script src="<?= ROOT ?>/public/js/jquery-2.2.1.min.js"></script>
-<script src="<?= ROOT ?>/public/js/ajaxForm.js"></script>
+<script src="<?= ROOT ?>/public/js/ajax.js"></script>
 </head>
 <body>
 <div class="top">
@@ -17,11 +17,11 @@
 		<table>
 			<tr>
 				<th width="80">用户名：</th>
-				<td><input class="input" type="text" name="username" required /></td>
+				<td><input class="input" type="text" name="username" value="admin" required /></td>
 			</tr>
 			<tr>
 				<th>密　码：</th>
-				<td><input class="input" type="password" name="password" required /></td>
+				<td><input class="input" type="password" name="password" value="admin" required /></td>
 			</tr>
 			<tr>
 				<th>验证码：</th>
@@ -30,7 +30,7 @@
 			<tr>
 				<td> </td>
 				<td>
-					<img src="<?= $captchaUrl ?>" onclick="this.src='<?= $captchaUrl ?>?t='+new Date;" id="captcha" title="点击刷新验证码"/>
+					<img src="<?= $captcha ?>" onclick="this.src='<?= $captcha ?>?t='+new Date;" id="captcha" title="点击刷新验证码"/>
 				</td>
 			</tr>
 			<tr>

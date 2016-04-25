@@ -5,14 +5,14 @@
 <title><?= $title ?></title>
 <link rel="stylesheet" href="<?= ROOT ?>admin/view/css/style.css" />
 <script src="<?= ROOT ?>public/js/jquery-2.2.1.min.js"></script>
-<script src="<?= ROOT ?>public/js/ajaxForm.js"></script>
+<script src="<?= ROOT ?>public/js/ajax.js"></script>
 </head>
 <body>
 <div class="top">
 	<h1>商城 <span>后台管理系统</span></h1>
 	<ul>
 		<li>欢迎您：<?= $_SESSION['admin'] ?></li>
-		<li><a href="/" target="_blank">前台首页</a></li>
+		<li><a href="<?= ROOT ?>" target="_blank">前台首页</a></li>
 		<li><a href="<?= U('admin/Login/logout') ?>">退出登录</a></li>
 	</ul>
 </div>
