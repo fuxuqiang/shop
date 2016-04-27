@@ -6,6 +6,7 @@ const EXT = '.class.php';
 
 /* MySQL连接配置 */
 const HOST = 'localhost';
+const DB = 'shop';
 const USER = 'root';
 const PWD = '0328';
 

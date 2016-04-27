@@ -42,14 +42,13 @@ class Model {
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function fetchAll($fields, $where='1') {
+	public function fetchAll($fields='*', $where='1') {
 		$conditions = $this->where($where);
 		return $this->query("SELECT $fields FROM `$this->table` WHERE $conditions");		
 	}
 
 	public function fetch($fields, $where) {
-		$conditions = $this->where($where);
-		$stmt = $this->db->query("SELECT $fields FROM `$this->table` WHERE $conditions");
+		$stmt = $this->db->query("SELECT $fields FROM `$this->table` WHERE $where");
 		return $stmt->fetch();
 	}
 
@@ -99,6 +98,8 @@ class Model {
 			$q .= "`$k`=:$k,";
 		}
 		$q = rtrim($q, ',');
+
+		$where = $this->where($where);
 
 		$stmt = $this->db->query(
 			"UPDATE `$this->table` SET $q WHERE $where",

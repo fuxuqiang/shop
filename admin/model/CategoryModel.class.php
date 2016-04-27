@@ -15,13 +15,13 @@ class CategoryModel extends Model{
 	}
 	
 	public function getData() {
-		$data = $this->fetchAll('*');
+		$data = $this->fetchAll();
 		return $this->tree($data);
 	} 
 
 	public function getSubIds($pid) {
 			
-		$data = $this->tree($this->fetchAll('*'), $pid);
+		$data = $this->tree($this->fetchAll(), $pid);
 		$result = array($pid);
 		foreach ($data as $v) {
 			$result[] = $v['id'];
