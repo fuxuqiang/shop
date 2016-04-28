@@ -3,7 +3,7 @@
 abstract class Controller {
 
 	protected function ajaxReturn($flag, $msg=null, $url=null) {
-		exit(json_encode(array('flag'=>$flag, 'errmsg'=>$msg, 'url'=>$url)));
+		exit(json_encode(array('flag'=>$flag, 'msg'=>$msg, 'url'=>$url)));
 	}
 
 	protected function getParam($field, $def) {

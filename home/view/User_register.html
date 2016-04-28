@@ -40,7 +40,11 @@ $("#pwd2").blur(function(){
 	}
 });
 //Ajax表单提交
-$("#regForm").ajaxForm();
+$("#regForm").ajaxForm(function(){
+	setTimeout(function() {
+		location.href = '<?= ROOT ?>';
+	}, 1500);
+});
 //表单提交时验证表单
 $("#regBtn").click(function(){
 	if($("#pwd2").val() !== $("#pwd").val()){

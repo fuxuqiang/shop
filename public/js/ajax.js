@@ -1,26 +1,27 @@
 // (function($) {
-	$.fn.ajaxForm = function(callback) {
-		var thisObj = this;
-		thisObj.submit(function(e) {
-			e.preventDefault();
-			var data = thisObj.serialize();
-			ajaxPost(thisObj.attr("action"), data, callback);
-		});
-	};
+$.fn.ajaxForm = function(callback) {
+	var thisObj = this;
+	thisObj.submit(function(e) {
+		e.preventDefault();
+		var data = thisObj.serialize();
+		ajaxPost(thisObj.attr("action"), data, callback);
+	});
+};
 // })($);
 
 function ajaxPost(url, data, callback) {
 	$.post(url, data, function(msg) {
+		if (msg.msg) {
+			showTip(msg.msg);
+		}
 		if (msg.flag) {
 			if (msg.url) {
 				location.href = msg.url;
 			} else {
 				callback();
 			}
-		} else {
-			showTip(msg.errmsg);
-		}
-	} ,"json");
+		} 
+	}, "json");
 }
 
 function showTip(msg) {

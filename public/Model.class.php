@@ -43,8 +43,8 @@ class Model {
 	}
 
 	public function fetchAll($fields='*', $where='1') {
-		$conditions = $this->where($where);
-		return $this->query("SELECT $fields FROM `$this->table` WHERE $conditions");		
+		$where = $this->where($where);
+		return $this->query("SELECT $fields FROM `$this->table` WHERE $where");		
 	}
 
 	public function fetch($fields, $where) {
@@ -53,6 +53,7 @@ class Model {
 	}
 
 	public function getField($field, $where) {
+		$where = $this->where($where);
 		return $this->fetch($field, $where)[0];
 	}
 
