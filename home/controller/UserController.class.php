@@ -10,17 +10,17 @@ class UserController extends Controller {
 
 			if ($info['captcha']==$_SESSION['captcha']) {
 
-				if (M('User')->getField('id', array('username'=>$info['username']))) {
+				if (M('User')->getField('id', array('name'=>$info['name']))) {
 
 					$this->ajaxReturn(false, '用户名已经存在');
 					
 				} else {
 
-					$data['username'] = $info['username'];
-					$data['password'] = md5($info['password']);
+					$data['name'] = $info['name'];
+					$data['pwd'] = md5($info['pwd']);
 
 					if ($id = M('User')->insert($data)) {
-						$_SESSION['user'] = array('id'=>$id, 'name'=>$info['username']);
+						$_SESSION['user'] = array('id'=>$id, 'name'=>$info['name']);
 						$this->ajaxReturn(true, '注册成功，正在跳转');
 					}
 				}
@@ -41,7 +41,12 @@ class UserController extends Controller {
 
 
 	public function login() {
+		if (!empty($_POST)) {
+			# code...
+		}
 
+		$captcha = U('home/User/captcha');
+		require VIEW;
 	}
 
 
