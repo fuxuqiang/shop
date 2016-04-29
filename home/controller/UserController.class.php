@@ -16,7 +16,10 @@ class UserController extends Controller {
 					
 				} else {
 
-					if ($id = M('User')->insert(array_slice($info, 0, 2))) {
+					$data['username'] = $info['username'];
+					$data['password'] = md5($info['password']);
+
+					if ($id = M('User')->insert($data)) {
 						$_SESSION['user'] = array('id'=>$id, 'name'=>$info['username']);
 						$this->ajaxReturn(true, '注册成功，正在跳转');
 					}
@@ -34,5 +37,15 @@ class UserController extends Controller {
 
 	public function captcha() {
 		Captcha::create();
+	}
+
+
+	public function login() {
+
+	}
+
+
+	public function logout() {
+		
 	}
 }
