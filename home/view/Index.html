@@ -31,11 +31,7 @@
 	<?php foreach($best as $v): ?>
 	<ul class="item left">
 		<li><a href="/?a=goods&id=<?=$v['id']?>" target="_blank">
-		<?php if(empty($v['thumb'])):?>
-		<img src="/public/home/images/preview.jpg">
-		<?php else: ?>
-		<img src="/public/upload/small/<?=$v['thumb']?>">
-		<?php endif; ?>
+		<img src="<?= ROOT.$v['thumb'] ?>">
 		</a></li>
 		<li class="goods"><a href="/?a=goods&id=<?=$v['id']?>" target="_blank"><?=$v['name']?></a></li>
 		<li class="price">￥<?=$v['price']?></li>
