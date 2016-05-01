@@ -1,0 +1,56 @@
+<div class="slide">
+<?php foreach($category as $k=>$v1): if($k<8): ?>
+<div class="cate">
+	<div class="subcate left"><a href="/?a=find&cid=<?=$v1['id']?>"><?=$v1['name']?></a></div>
+	<div class="subitem" style="display:none;">
+		<?php if(isset($v1['child'])): foreach($v1['child'] as $v2):?>
+			<dl><dt><a href="/?a=find&cid=<?=$v2['id']?>"><?=$v2['name']?></a></dt><dd>
+			<?php if(isset($v2['child'])): foreach($v2['child'] as $v3): ?>
+				<a href="/?a=find&cid=<?=$v3['id']?>"><?=$v3['name']?></a>
+			<?php endforeach; endif; ?>
+			</dd></dl>
+		<?php endforeach; endif;?>
+	</div>
+</div>
+<?php endif; endforeach; ?>
+</div>
+<div class="hot left" id="hot">
+	<div class="num"><a class="curr"></a><a></a><a></a><a></a></div>
+	<ul>
+		<li class="def"><a href="#"><img src="<?= U('home') ?>/view/images/1.jpg" /></a></li>
+		<li><a href="#"><img src="<?= U('home') ?>/view/images/2.jpg" /></a></li>
+		<li><a href="#"><img src="<?= U('home') ?>/view/images/3.jpg" /></a></li>
+		<li><a href="#"><img src="<?= U('home') ?>/view/images/4.jpg" /></a></li>
+	</ul>
+</div>
+<div class="news right">最新动态</div>
+<div class="clear"></div>
+<!--推荐商品-->
+<div class="best">
+	<div class="best-title">精品推荐</div>
+	<?php foreach($data['best'] as $v): ?>
+	<ul class="item left">
+		<li><a href="/?a=goods&id=<?=$v['id']?>" target="_blank">
+		<?php if(empty($v['thumb'])):?>
+		<img src="/public/home/images/preview.jpg">
+		<?php else: ?>
+		<img src="/public/upload/small/<?=$v['thumb']?>">
+		<?php endif; ?>
+		</a></li>
+		<li class="goods"><a href="/?a=goods&id=<?=$v['id']?>" target="_blank"><?=$v['name']?></a></li>
+		<li class="price">￥<?=$v['price']?></li>
+	</ul>
+	<?php endforeach ?>
+</div>
+<script src="<?= U('home') ?>/view/js/slideBox.js"></script>
+<script>
+$(".cate").hover(function(){
+	$(this).find(".subitem").show();
+	$(this).children(".subcate").children("a").addClass("on");
+},function(){
+	$(this).find(".subitem").hide();
+	$(this).children(".subcate").children("a").removeClass("on");
+});
+
+slideBox("#hot",5000);  //焦点图切换
+</script>
