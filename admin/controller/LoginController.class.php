@@ -8,7 +8,9 @@ class LoginController extends Controller{
 
 			if ($_POST['captcha']==$_SESSION['captcha']) {
 
-				if ($_POST['username']=='admin' && $_POST['password']=='admin') {
+				unset($_SESSION['captcha']);
+
+				if ($_POST['name']=='admin' && $_POST['pwd']=='admin') {
 					$_SESSION['admin'] = 'admin';
 					$this->ajaxReturn(true, '', U('admin'));
 				} else {
@@ -31,7 +33,7 @@ class LoginController extends Controller{
 
 
 	public function logout() {
-		unset($_SESSION);
+		//unset($_SESSION);
 		setcookie(session_name(), '', time()-1);
 		session_destroy();
 		$this->redirect(U('admin/Login'));

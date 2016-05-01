@@ -7,12 +7,12 @@ class Model {
 	protected $db;
 
 	public function __construct($table) {
-		$this->table = strtolower(preg_replace('/([A-Z])/', '_$1', lcfirst($table)));
+		$this->table = C('TABLE_PREFIX').strtolower(preg_replace('/([A-Z])/', '_$1', lcfirst($table)));
 		$this->db = MySQLPDO::getInstance();
 	}
 
 
-	private function where($where) {
+	private function _where($where) {
 
 		if (is_array($where)) {
 
@@ -43,7 +43,7 @@ class Model {
 	}
 
 	public function fetchAll($fields='*', $where='1') {
-		$where = $this->where($where);
+		$where = $this->_where($where);
 		return $this->query("SELECT $fields FROM `$this->table` WHERE $where");		
 	}
 
@@ -53,7 +53,7 @@ class Model {
 	}
 
 	public function getField($field, $where) {
-		$where = $this->where($where);
+		$where = $this->_where($where);
 		return $this->fetch($field, $where)[0];
 	}
 
@@ -100,7 +100,7 @@ class Model {
 		}
 		$q = rtrim($q, ',');
 
-		$where = $this->where($where);
+		$where = $this->_where($where);
 
 		$stmt = $this->db->query(
 			"UPDATE `$this->table` SET $q WHERE $where",

@@ -2,7 +2,7 @@
 
 class CategoryModel extends Model{
 
-	private function tree($data, $pid=0, $level=0) {
+	private function _tree($data, $pid=0, $level=0) {
 		static $rst = array();
 		foreach ($data as $v) {
 			if ($v['pid']==$pid) {
@@ -16,12 +16,12 @@ class CategoryModel extends Model{
 	
 	public function getData() {
 		$data = $this->fetchAll();
-		return $this->tree($data);
+		return $this->_tree($data);
 	} 
 
 	public function getSubIds($pid) {
 			
-		$data = $this->tree($this->fetchAll(), $pid);
+		$data = $this->_tree($this->fetchAll(), $pid);
 		$result = array($pid);
 		foreach ($data as $v) {
 			$result[] = $v['id'];

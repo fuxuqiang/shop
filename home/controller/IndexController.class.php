@@ -2,6 +2,7 @@
 
 class IndexController {
 	public function Index() {
-		require VIEW;
+		$category = D('Category')->getData();
+		require TEMPLATE;
 	}
 }
