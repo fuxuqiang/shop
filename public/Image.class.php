@@ -20,15 +20,26 @@ class Image {
 
 		$thumb = imagecreatetruecolor($newwidth, $newheight);
 
-		$source = imagecreatefromjpeg($img['tmp_name']);
+		switch ($img['type']) {
+			case 'image/jpeg':
+				$create = 'imagecreatefromjpeg';
+				$save = 'imagejpeg';
+				break;
+			case 'image/png':
+				$create = 'imagecreatefrompng';
+				$save = 'imagepng';
+				break;
+		}
+
+		$source = $create($img['tmp_name']);
 
 		imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 		
-		//$type = strrchr($file['name'], '.');
-		$img_name = 'public/upload/'.uniqid().'.jpg';
+		$type = strrchr($img['name'], '.');
+		$img_path = 'public/upload/'.uniqid().$type;
 		
-		imagejpeg($thumb, $img_name, 100);
+		($save=='imagejpeg')? $save($thumb, $img_path, 100):$save($thumb, $img_path);
 
-		return $img_name;
+		return $img_path;
 	}
 }

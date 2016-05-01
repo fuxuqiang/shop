@@ -8,7 +8,7 @@ class CategoryModel extends Model{
 			if ($v['pid']==$pid) {
 				$v['level'] = $level;
 				$rst[] = $v;
-				$this->tree($data, $v['id'], $level+1);
+				$this->_tree($data, $v['id'], $level+1);
 			}
 		}
 		return $rst;

@@ -11,15 +11,14 @@ class RecycleController extends CommonController {
 	}
 
 	public function recover() {
-		$id = $_POST['id'];
-		if(D('Goods')->change($id, 'recycle', 'no')){
+		if(D('Goods')->change($_POST['id'], 'recycle', 'no')){
 			$this->ajaxReturn(true);
 		}
 	}
 
 	public function del() {
 		$id = $_POST['id'];
-		if (M('Goods')->delete("id=$id")) {
+		if (D('Goods')->delThumb($id) && M('Goods')->delete("id=$id") && M('GoodsAttr')->delete("gid=$id")) {
 			$this->ajaxReturn(true);
 		}
 	}

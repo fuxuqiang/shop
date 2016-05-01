@@ -12,7 +12,7 @@
 	<div class="top-nav">
 	<ul><li>收藏本站</li><li>关注本站</li></ul>
 	<ul class="right">
-		<?php if(!empty($_SESSION)): ?>
+		<?php if(!empty($_SESSION['user'])): ?>
 		<li><?=$_SESSION['name']?>，欢迎来到商城！[<a href="/?c=user&a=logout">退出</a>]<li>
 		<?php else: ?>
 		<li>您好，欢迎来到商城！[<a href="/?c=user&a=login">登录</a>][<a href="/?c=user&a=register">免费注册</a>]</li>

@@ -28,11 +28,11 @@ class GoodsModel extends Model {
 	}
 
 
-	public function handleThumb($id) {
+	public function delThumb($id) {
 		$thumb = $this->getField('thumb',"id=$id");
-		if ($thumb!='public/upload/preview.jpg') {
+		if ($thumb!='public/upload/preview.jpg' && is_file($thumb)) {
 			unlink($thumb);
 		}
-		return upload::getPath('pic');
+		return true;
 	}
 }

@@ -26,7 +26,7 @@ class GoodsController extends CommonController {
 			if (empty($_FILES['pic']['name'])) {
 				$data['thumb'] = 'public/upload/preview.jpg';
 			} else {				
-				$data['thumb'] = image::getPath('pic');
+				$data['thumb'] = Image::getPath('pic');
 			}
 
 			if (isset($data['attr'])) {
@@ -80,7 +80,7 @@ class GoodsController extends CommonController {
 			$data = I($_POST);
 
 			if (!empty($_FILES['pic']['name'])) {
-				$data['thumb'] = D('Goods')->handleThumb($id);
+				D('Goods')->delThumb($id) && $data['thumb'] = Image::getPath('pic');
 			}
 
 			if (isset($data['attr'])) {
