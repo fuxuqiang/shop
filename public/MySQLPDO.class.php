@@ -4,12 +4,12 @@ class MySQLPDO {
 	private static $instance;
 	private $db;
 
-	private function __construct($flag=false) {
+	private function __construct() {
 		try {
 			$this->db = new PDO(
-				'mysql:host='.C('HOST').';dbname='.C('DB').';charset=utf8',
-				C('USER'),
-				C('PWD'),
+				'mysql:host='.HOST.';port='.PORT.';dbname='.DB.';charset=utf8',
+				USER,
+				PWD,
 				array(PDO::ATTR_ERRMODE=>2)
 			);
 		} catch (PDOException $e) {

@@ -6,13 +6,13 @@ class AttributeController extends CommonController {
 
 		$cid = $this->getParam('cid',0);
 
-		$category = D('Category')->getData();
+		$category = D('Category')->adminData();
 
 		if ($cid==0 && isset($category[0]['id'])) {
 			$cid = $category[0]['id'];
 		}
 
-		$attribute = M('Attribute')->fetchAll('*',"cid=$cid");
+		$attribute = M('Attribute')->where("cid=$cid")->fetchAll();
 
 		$title = TITLE.'商品属性';
 		require TEMPLATE;
@@ -21,16 +21,16 @@ class AttributeController extends CommonController {
 
 	public function add() {
 
+		$cid = $_GET['cid'];
+
 		if (!empty($_POST)) {
 			
 			$data = I($_POST);
 
 			if (M('Attribute')->insert($data)) {
-				$this->redirect(U('admin/Attribute'));
+				$this->redirect(U('admin/Attribute?cid='.$cid));
 			}
 		}
-
-		$cid = $_GET['cid'];
 
 		$title = TITLE.'属性添加';
 		require TEMPLATE;
@@ -55,14 +55,14 @@ class AttributeController extends CommonController {
 
 			$data = I($_POST);
 
-			if (M('Attribute')->update($data, "id=$id")) {
+			if (M('Attribute')->where("id=$id")->update($data)) {
 				$this->redirect(U('admin/Attribute'));
 			}
 		}
 
 		$cid = $_GET['cid'];
 
-		$attribute = M('Attribute')->fetch('*',"id=$id");
+		$attribute = M('Attribute')->where("id=$id")->fetch();
 
 		$title = TITLE.'属性修改';
 		require TEMPLATE;

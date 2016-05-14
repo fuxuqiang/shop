@@ -6,11 +6,16 @@ class GoodsController extends CommonController {
 
 		$cid = $this->getParam('cid',-1);
 		
-		$category = D('Category');
-		$cids = ($cid>0)? $category->getSubIds($cid) : $cid;
+		$Category = D('Category');
 
-		$data['category'] = $category->getData();
-		$data['goods'] = D('Goods')->getData('goods',$cids);
+		if ($cid>0 && $Category->getSubIds($cid)) {
+			$cids = $Category->getSubIds($cid);
+		} else {
+			$cids = $cid;
+		}
+
+		$data['category'] = $Category->adminData();
+		$data['goods'] = D('Goods')->adminData('goods',$cids);
 		
 		$title = TITLE.'商品列表';
 		require TEMPLATE;
@@ -51,7 +56,7 @@ class GoodsController extends CommonController {
 		$cid = $_GET['cid'];
 		$cid<0 && $cid = 0;
 
-		$category = D('Category')->getData();
+		$category = D('Category')->adminData();
 		$attribute = D('Attribute')->getData($cid);
 
 		$title = TITLE.'商品添加';
@@ -88,7 +93,7 @@ class GoodsController extends CommonController {
 				$attr = $data['attr'];
 				unset($data['attr']);
 				
-				if (M('Goods')->update($data, "id=$id")) {
+				if (M('Goods')->where("id=$id")->update($data)) {
 					if(D('GoodsAttr')->updateData($attr, $id)){
 						$this->redirect(U('admin/Goods').'?cid='.$data['cid']);
 					}
@@ -102,8 +107,8 @@ class GoodsController extends CommonController {
 
 		$cid = $_GET['cid'];
 
-		$data['category'] = D('Category')->getData();
-		$data['goods'] = M('Goods')->fetch('*',"id=$id");
+		$data['category'] = D('Category')->adminData();
+		$data['goods'] = M('Goods')->where("id=$id")->fetch();
 		$data['attribute'] = D('GoodsAttr')->getData($cid, $id);
 		
 		$title = TITLE.'商品修改';

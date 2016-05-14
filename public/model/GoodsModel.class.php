@@ -2,7 +2,7 @@
 
 class GoodsModel extends Model {
 
-	public function getData($type='goods', $cids=0) {
+	public function adminData($type='goods', $cids=0) {
 		if ($type=='goods') {
 			$where = "g.recycle='no'";
 		} elseif ($type=='recycle') {
@@ -14,10 +14,15 @@ class GoodsModel extends Model {
 		} elseif (is_array($cids)) {
 			$where .= 'and g.cid in ('.implode(',', $cids).')';
 		}
-
+	
 		$q = "SELECT `c`.`name` as `cname`, `g`.* FROM `goods` as `g` LEFT JOIN `category` as `c` ON `c`.`id`=`g`.`cid` WHERE $where";
 			
 		return $this->query($q);
+	}
+
+
+	public function homeData() {
+		
 	}
 
 
@@ -29,10 +34,16 @@ class GoodsModel extends Model {
 
 
 	public function delThumb($id) {
-		$thumb = $this->getField('thumb',"id=$id");
+		$thumb = $this->where("id=$id")->getField('thumb');
 		if ($thumb!='public/upload/preview.jpg' && is_file($thumb)) {
 			unlink($thumb);
 		}
 		return true;
+	}
+
+
+	public function getBest() {
+		$map = array('recommend'=>'yes', 'on_sale'=>'yes', 'recycle'=>'no');
+		return $this->where($map)->fetchAll();
 	}
 }

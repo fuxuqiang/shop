@@ -11,12 +11,13 @@ class Framework {
 	private static function class_loader($class) {
 		if (strpos($class, 'Controller')) {
 			require PLATFORM.'/controller/'.$class.EXT;
-		} elseif (strpos($class, 'Model')) {
-			require PLATFORM.'/model/'.$class.EXT;
+		} elseif (strpos($class, 'Model')!==false) {
+			require 'public/model/'.$class.EXT;
 		} else {
 			require 'public/'.$class.EXT;
 		}
 	}
+
 
 	private static function getParams() {
 		
@@ -50,6 +51,7 @@ class Framework {
 				break;
 		}
 	}
+
 
 	private static function dispatch() {
 		session_start();

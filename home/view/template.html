@@ -19,7 +19,6 @@
 		<li class="line">|</li><li><a href="/?c=order">我的订单</a></li>
 		<li class="line">|</li><li><a href="/?c=user">会员中心</a></li>
 		<li class="line">|</li><li><a href="/?c=cart">我的购物车</a></li>
-		<li class="line">|</li><li>联系客服</li>
 	</ul>
 	</div>
 </div>
@@ -36,22 +35,13 @@
 		</div>
 	</div>
 	<div class="nav">
-		<ul><li id="index_find"><a class="category" href="/?a=find">全部商品分类</a></li><li id="index_index"><a href="/">首页</a></li>
-			<li><a href="#">特色购物</a></li><li><a href="#">优惠促销</a></li><li><a href="#">限时秒杀</a></li>
-			<li><a href="#">品牌专区</a></li><li><a href="#">服务中心</a></li>
+		<ul>
+			<li><a class="category" href="<?= U('home/Index/find') ?>">全部商品分类</a></li>
+			<li><a href="<?= ROOT ?>">首页</a></li>
 		</ul>
 	</div>
 	<?php require VIEW; ?>
-	<div class="service">
-		<ul><li>购物指南</li><li>配送方式</li><li>支付方式</li>
-			<li>售后服务</li><li>特色服务</li><li>网络服务</li>
-		</ul>
-	</div>
 	<div class="footer">商城·本项目仅供学习使用</div>
 </div>
-<script>
-//激活链接
-$("#<?=CONTROLLER?>_<?=ACTION?>").addClass("curr");
-</script>
 </body>
 </html>

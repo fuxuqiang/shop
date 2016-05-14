@@ -3,7 +3,7 @@
 class CategoryController extends CommonController {
 
 	public function index() {
-		$data = D('Category')->getData();
+		$data = D('Category')->adminData();
 		$title = TITLE.'商品分类';
 		require TEMPLATE;
 	}
@@ -27,7 +27,7 @@ class CategoryController extends CommonController {
 
 		$tip = $this->getParam('tip',0);
 		$id = $this->getParam('id',0);
-		$data = D('Category')->getData();
+		$data = D('Category')->adminData();
 		$title = TITLE.'分类添加';
 
 		require TEMPLATE;
@@ -40,7 +40,7 @@ class CategoryController extends CommonController {
 
 		$model = M('Category');
 
-		if ($model->fetch('*',"pid=$id")) {
+		if ($model->where("pid=$id")->fetch()) {
 			$this->ajaxReturn(false, '删除失败，只允许删除最底层分类');
 		} 
 			
@@ -59,13 +59,15 @@ class CategoryController extends CommonController {
 			$data['name'] = $_POST['name'];
 			$data['pid'] = $_POST['pid'];
 
-			$model = D('Category');
+			$Category = D('Category');
 
-			if (in_array($data['pid'], $model->getSubIds($id))) {
+			$sub_ids = $Category->getSubIds($id);
+
+			if (in_array($data['pid'], $sub_ids) || $data['pid']==$id) {
 				$this->ajaxReturn(false, '不允许将当前分类及其子类作为父分类');
 			}
 
-			$res = $model->update($data, "id=$id");
+			$res = $Category->where("id=$id")->update($data);
 
 			if ($res && isset($_POST['return'])) {
 				$this->ajaxReturn(true,'',U('admin/Category'));
@@ -78,8 +80,8 @@ class CategoryController extends CommonController {
 
 		$model = D('Category');
 
-		$category = $model->fetch('name,pid',"id=$id");
-		$data = $model->getData();
+		$category = $model->where("id=$id")->fetch('name,pid');
+		$data = $model->adminData();
 
 		$title = TITLE.'分类修改';
 		require TEMPLATE;

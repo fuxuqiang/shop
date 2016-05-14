@@ -16,9 +16,9 @@ class GoodsAttrModel extends Model {
 
 		foreach ($data as $k => $v) {
 
-			if ($id = $this->getField('id', "aid=$k and gid=$gid")) {
+			if ($id = $this->where("aid=$k and gid=$gid")->getField('id')) {
 
-				if(!$this->update(array('aid'=>$k, 'value'=>$v, 'gid'=>$gid), "id=$id")) {
+				if(!$this->where("id=$id")->update(array('aid'=>$k, 'value'=>$v, 'gid'=>$gid))) {
 					return false;
 				}
 

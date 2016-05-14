@@ -93,7 +93,6 @@
 				</div>
 				<div class="btn">
 					<input type="submit" value="修改商品" />
-					<input type="submit" value="修改并返回" name="return" />
 				</div>
 			</form>
 		</div>
@@ -107,5 +106,19 @@ $(".tab i").click(function(){
 	$(".tab-each").eq($(this).index()).show();
 	$(".tab i").removeClass("curr");
 	$(this).addClass("curr");
+});
+// 显示上传图片预览
+$(":file").change(function(){
+	var file = document.getElementsByName('pic')[0];
+	var img = new Image;
+	img.src = window.URL.createObjectURL(file.files[0]);
+	img.onload = function(){
+		if (img.width > img.height){
+			img.width = 220;
+		} else {
+			img.height = 220;
+		}
+		$(":file").prev().replaceWith(img);
+	}
 });
 </script>
