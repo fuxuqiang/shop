@@ -6,7 +6,7 @@ class AttributeController extends CommonController {
 
 		$cid = $this->getParam('cid',0);
 
-		$category = D('Category')->adminData();
+		$category = D('Category')->getData();
 
 		if ($cid==0 && isset($category[0]['id'])) {
 			$cid = $category[0]['id'];

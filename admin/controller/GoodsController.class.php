@@ -14,7 +14,7 @@ class GoodsController extends CommonController {
 			$cids = $cid;
 		}
 
-		$data['category'] = $Category->adminData();
+		$data['category'] = $Category->getData(0);
 		$data['goods'] = D('Goods')->adminData('goods',$cids);
 		
 		$title = TITLE.'商品列表';

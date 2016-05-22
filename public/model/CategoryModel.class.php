@@ -1,19 +1,28 @@
 <?php
-
+/**
+ * 分类控制器类
+ */
 class CategoryModel extends Model{
 	
-	public function adminData() {
+	/**
+	 * 查询层级分类数据
+	 *
+	 * @param int $pid 父分类ID
+	 * @return array
+	 */
+	public function getData($pid=0) {
 		$rst = array();
-		$this->_tree($this->fetchAll(), $rst);
+		$this->_tree($this->fetchAll(), $rst, $pid);
 		return $rst;
 	}
 
-	public function homeData() {
+	public function slideData() {
 		$data = $this->fetchAll();
 		return $this->_child($data);
 	}
 
-	public function getSubIds($pid) {			
+	public function getSubIds($pid) {
+		$data = array();
 		$this->_tree($this->fetchAll(), $data, $pid);
 		$result = array();
 		foreach ($data as $v) {
@@ -44,6 +53,15 @@ class CategoryModel extends Model{
 		return $list;
 	}
 
+	/**
+	 * 给分类数据添加层级
+	 *
+	 * @param array $data 待处理分类数据
+	 * @param array $rst 添加层级后分类数据
+	 * @param int $pid 起始分类ID
+	 * @param int $level 起始层级
+	 * @return null
+	 */
 	private function _tree($data, &$rst, $pid=0, $level=0) {
 		foreach ($data as $v) {
 			if ($v['pid']==$pid) {

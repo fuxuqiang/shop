@@ -1,63 +1,67 @@
 <?php
-
+/**
+* 后台分类控制器类
+*/
 class CategoryController extends CommonController {
 
+	// 显示分类首页
 	public function index() {
-		$data = D('Category')->adminData();
+		$data = D('Category')->getData();
 		$title = TITLE.'商品分类';
 		require TEMPLATE;
 	}
 
-
+	// 分类添加
 	public function add() {
 		
 		if (!empty($_POST)) {
 
-			$data['name'] = $_POST['name'];
-			$data['pid'] = $_POST['pid'];
+			$data['name'] = htmlspecialchars($_POST['name']);
+			$data['pid'] = htmlspecialchars($_POST['pid']);
 
 			$id = M('Category')->insert($data);
 
 			if ($id && isset($_POST['return'])) {
-				$this->ajaxReturn(true,'',U('admin/Category'));
+				$this->ajaxReturn(true, '', U('admin/Category'));
 			} elseif ($id) {
-				$this->ajaxReturn(true,'','?tip=1&id='.$id);
+				$this->ajaxReturn(true, '', '?tip=1&id='.$id);
 			}	
 		}
-
+		
+		// 显示分类添加页面
 		$tip = $this->getParam('tip',0);
 		$id = $this->getParam('id',0);
-		$data = D('Category')->adminData();
+		$data = D('Category')->getData();
 		$title = TITLE.'分类添加';
 
 		require TEMPLATE;
 	}
 
-
+	// 删除分类
 	public function del() {
 
 		$id = $_POST['id'];
 
-		$model = M('Category');
+		$Category = M('Category');
 
-		if ($model->where("pid=$id")->fetch()) {
+		if ($Category->where("pid=$id")->fetch()) {
 			$this->ajaxReturn(false, '删除失败，只允许删除最底层分类');
 		} 
 			
-		if ($model->delete("id=$id") && M('Attribute')->delete("cid=$id")) {
+		if ($Category->delete("id=$id") && M('Attribute')->delete("cid=$id")) {
 			$this->ajaxReturn(true);
 		}
 	}
 
-
+	// 修改分类
 	public function edit() {
 
 		$id = $_GET['id'];
 
 		if (!empty($_POST)) {
 			
-			$data['name'] = $_POST['name'];
-			$data['pid'] = $_POST['pid'];
+			$data['name'] = htmlspecialchars($_POST['name']);
+			$data['pid'] = htmlspecialchars($_POST['pid']);
 
 			$Category = D('Category');
 
@@ -70,20 +74,21 @@ class CategoryController extends CommonController {
 			$res = $Category->where("id=$id")->update($data);
 
 			if ($res && isset($_POST['return'])) {
-				$this->ajaxReturn(true,'',U('admin/Category'));
+				$this->ajaxReturn(true, '', U('admin/Category'));
 			} elseif ($res) {
-				$this->ajaxReturn(true,'','?tip=1&id='.$id);
+				$this->ajaxReturn(true, '', '?tip=1&id='.$id);
 			}
 		}
-			
+		
+		// 显示分类修改页面
 		$tip = $this->getParam('tip',0);
 
-		$model = D('Category');
+		$Category = D('Category');
 
-		$category = $model->where("id=$id")->fetch('name,pid');
-		$data = $model->adminData();
-
+		$data['category'] = $Category->where("id=$id")->fetch('name,pid');
+		$data['categories'] = $Category->getData();
 		$title = TITLE.'分类修改';
+		
 		require TEMPLATE;
 	}
 }

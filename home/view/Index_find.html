@@ -2,11 +2,30 @@
 	<div class="find-right left">
 		<ul class="filter">
 			<li class="filter-title">商品列表</li>
-			<li><dl><dt>分类：</dt><dd>
-				<?php if(isset($data['categorys'])): foreach($data['categorys'] as $v): ?>
-				<a><?= $v ?></a>
-				<?php endforeach; endif; ?>
-			</dd></dl></li>
+			<li>
+				<dl>
+					<dt>分类：</dt>
+					<dd>
+					<?php if(isset($data['categorys'])): foreach($data['categorys'] as $v): 
+						if($v['level']==0): echo '
+						<a href="?cid='.$v['id'].'">'.$v['name'].'</a>';
+						endif; 
+					endforeach; endif; ?>				
+					</dd>
+				</dl>
+			</li>
+			<li>
+				<dl>
+					<dt>子分类：</dt>
+					<dd>
+					<?php if(isset($data['categorys'])): foreach($data['categorys'] as $v): 
+						if($v['level']==1): echo '
+						<a href="?cid='.$v['id'].'">'.$v['name'].'</a>';
+						endif; 
+					endforeach; endif; ?>					
+					</dd>
+				</dl>
+			</li>
 			<!-- <li><dl><dt>价格：</dt><dd>
 				<a href="/<?=View::mkFilterURL('price')?>" class="price-0">全部</a>
 				<?php if(!empty($data['goods']['price'])): foreach($data['goods']['price'] as $v): ?>

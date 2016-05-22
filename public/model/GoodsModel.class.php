@@ -9,10 +9,10 @@ class GoodsModel extends Model {
 			$where = "g.recycle='yes'";
 		}
 		
-		if ($cids==0) {
-			$where .= 'and g.cid=0';
-		} elseif (is_array($cids)) {
-			$where .= 'and g.cid in ('.implode(',', $cids).')';
+		if (is_array($cids)) {
+			$where .= 'AND g.cid in ('.implode(',', $cids).')';
+		} elseif ($cids!=-1) {
+			$where .= "AND g.cid=$cids";
 		}
 	
 		$q = "SELECT `c`.`name` as `cname`, `g`.* FROM `goods` as `g` LEFT JOIN `category` as `c` ON `c`.`id`=`g`.`cid` WHERE $where";
